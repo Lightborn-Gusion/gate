@@ -6,8 +6,9 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    // --- UPDATED ---
+    public string $fromEmail  = 'guestandusersentry@gmail.com';
+    public string $fromName   = 'TUPT Gatepass Admin';
     public string $recipients = '';
 
     /**
@@ -18,7 +19,8 @@ class Email extends BaseConfig
     /**
      * The mail sending protocol: mail, sendmail, smtp
      */
-    public string $protocol = 'mail';
+    // --- UPDATED ---
+    public string $protocol = 'smtp';
 
     /**
      * The server path to Sendmail.
@@ -28,22 +30,26 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = '';
+    // --- UPDATED ---
+    public string $SMTPHost = 'smtp.gmail.com';
 
     /**
      * SMTP Username
      */
-    public string $SMTPUser = '';
+    // --- UPDATED ---
+    public string $SMTPUser = 'guestandusersentry@gmail.com';
 
     /**
      * SMTP Password
      */
-    public string $SMTPPass = '';
+    // --- UPDATED ---
+    public string $SMTPPass = 'tfud lhoa itim thjk'; // <-- See security note below!
 
     /**
      * SMTP Port
      */
-    public int $SMTPPort = 25;
+    // --- UPDATED ---
+    public int $SMTPPort = 465;
 
     /**
      * SMTP Timeout (in seconds)
@@ -59,10 +65,11 @@ class Email extends BaseConfig
      * SMTP Encryption.
      *
      * @var string '', 'tls' or 'ssl'. 'tls' will issue a STARTTLS command
-     *             to the server. 'ssl' means implicit SSL. Connection on port
-     *             465 should set this to ''.
+     * to the server. 'ssl' means implicit SSL. Connection on port
+     * 465 should set this to ''.
      */
-    public string $SMTPCrypto = 'tls';
+    // --- UPDATED ---
+    public string $SMTPCrypto = 'ssl';
 
     /**
      * Enable word-wrap
