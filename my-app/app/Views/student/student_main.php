@@ -1678,6 +1678,13 @@
         }
 
     });
+    window.addEventListener('pageshow', function(event) {
+        // event.persisted is true when the page is loaded from the BFcache
+        if (event.persisted) {
+            // Force a hard reload from the server
+            window.location.reload();
+        }
+    });
 </script>
 
 </body>
