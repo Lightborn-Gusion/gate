@@ -5,36 +5,29 @@ namespace App\Filters;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Shield\Filters\SessionAuth;
 
-class StudentAuth extends SessionAuth implements FilterInterface
+class StudentAuth implements FilterInterface
 {
-    /**
-     * @param array|null $arguments
-     *
-     * @return ResponseInterface|RequestInterface
-     */
     public function before(RequestInterface $request, $arguments = null)
     {
-        // --- THIS LINE IS UPDATED ---
-        if (! service('auth')->loggedIn()) {
+        $session = session();
+
+        // --- UPDATED: Check for your custom session variable ---
+        if (! $session->get('student_logged_in')) {
             // --- END UPDATE ---
 
-            if (service('auth')->remember()) {
-                // User has a remember-me cookie, attempt to log them in
-                $user = service('auth')->getRememberedUser();
-                if ($user) {
-                    service('auth')->login($user);
-                    return $request;
-                }
-            }
-
-            $session = session();
+            // Save the URL they were trying to access
             $session->setTempdata('beforeLoginUrl', current_url());
 
+            // Redirect to the student login page
             return redirect()->route('student_login');
         }
 
         return $request;
+    }
+
+    public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
+    {
+        // No action needed
     }
 }
