@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
  * BaseController provides a convenient place for loading components
  * and performing functions that are needed by all your controllers.
  * Extend this class in any new controllers:
- *     class Home extends BaseController
+ * class Home extends BaseController
  *
  * For security be sure to declare any new methods as protected or private.
  */
@@ -53,6 +53,27 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
-        // E.g.: $this->session = service('session');
+        // --------------------------------------------------------------------
+        // --- ADDED: PREVENT BROWSER CACHING ON AUTHENTICATED PAGES ---
+        // --------------------------------------------------------------------
+        //
+        // This checks if a user is logged in (either student or guard)
+        // and sets headers to prevent the browser from caching the page.
+        // This fixes the "back button" issue after logging out.
+
+        $session = session();
+        if ($session->get('student_logged_in') || $session->get('guard_logged_in')) {
+            // HTTP 1.1.
+            $this->response->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+            // HTTP 1.0.
+            $this->response->setHeader('Pragma', 'no-cache');
+            // Proxies.
+            $this->response->setHeader('Expires', '0');
+        }
+        // --------------------------------------------------------------------
+        // --- END OF ADDED CODE ---
+        // --------------------------------------------------------------------
+
+        // E.g.: $this->session = \Config\Services::session();
     }
 }
