@@ -41,6 +41,7 @@
 <!-- Header (Fixed Top) - Simplified for Profile Page -->
 <header class="navbar navbar-expand navbar-light bg-white fixed-top shadow-sm">
     <div class="container-fluid">
+        <?php echo view('partials/flash_messages'); ?>
         <!-- Back Button -->
         <a class="btn btn-link p-1 me-1" href="<?= route_to('student_dashboard') ?>">
             <i class="ti ti-arrow-left fs-2"></i>
@@ -282,6 +283,19 @@
                 }
             });
         }
+    });
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set a timeout to run after 5 seconds
+        window.setTimeout(function() {
+            // Find all alerts that can be dismissed
+            var allAlerts = document.querySelectorAll('.alert-dismissible');
+
+            allAlerts.forEach(function(alert) {
+                // Use Bootstrap's Alert instance to close it
+                new bootstrap.Alert(alert).close();
+            });
+        }, 5000); // 5000 milliseconds = 5 seconds
     });
 </script>
 

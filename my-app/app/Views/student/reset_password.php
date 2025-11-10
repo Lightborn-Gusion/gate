@@ -34,6 +34,7 @@
         <div class="col-md-6 col-lg-5">
             <div class="card shadow border-0 rounded form-card">
                 <div class="card-body p-4 p-md-5">
+                    <?php echo view('partials/flash_messages'); ?>
                     <div class="text-center mb-4">
                         <img src="<?= base_url('assets/images/logos/logo.svg') ?>" alt="Logo" width="180" class="mb-3">
                         <h4 class="mb-0">Set a New Password</h4>
@@ -153,6 +154,19 @@
     setupPasswordToggle('password', 'togglePassword');
     // Setup for the password confirmation field
     setupPasswordToggle('password_confirm', 'togglePasswordConfirm');
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set a timeout to run after 5 seconds
+        window.setTimeout(function() {
+            // Find all alerts that can be dismissed
+            var allAlerts = document.querySelectorAll('.alert-dismissible');
+
+            allAlerts.forEach(function(alert) {
+                // Use Bootstrap's Alert instance to close it
+                new bootstrap.Alert(alert).close();
+            });
+        }, 5000); // 5000 milliseconds = 5 seconds
+    });
 </script>
 
 </body>
