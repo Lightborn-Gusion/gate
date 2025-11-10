@@ -12,21 +12,22 @@ use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
-// --- ADD SHIELD FILTERS ---
+// --- ADD SHIELD FILTERS (if you still use them for admin) ---
 use CodeIgniter\Shield\Filters\AuthRates;
 use CodeIgniter\Shield\Filters\ChainAuth;
-use CodeIgniter\Shield\Filters\GuestFilter;
+use CodeIgniter\Shield\Filters\GuestFilter as ShieldGuest;
 use CodeIgniter\Shield\Filters\SessionAuth;
 use CodeIgniter\Shield\Filters\TokenAuth;
-// --- ADD OUR NEW CUSTOM FILTERS ---
+// --- ADD OUR CUSTOM FILTERS ---
 use App\Filters\StudentAuth;
 use App\Filters\GuardAuth;
+use App\Filters\StudentGuest; // <-- ADD THIS
+use App\Filters\GuardGuest;   // <-- ADD THIS
 
 class Filters extends BaseFilters
 {
     /**
-     * Configures aliases for Filter classes to
-     * make reading things nicer and simpler.
+     * Configures aliases for Filter classes.
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
@@ -43,10 +44,13 @@ class Filters extends BaseFilters
         'tokens'        => TokenAuth::class,
         'chain'         => ChainAuth::class,
         'auth-rates'    => AuthRates::class,
-        'guest'         => GuestFilter::class,
-        // --- OUR CUSTOM ALIASES ---
+        'guest'         => ShieldGuest::class,
+        // --- OUR CUSTOM AUTH ALIASES ---
         'student-auth'  => StudentAuth::class,
         'guard-auth'    => GuardAuth::class,
+        // --- OUR NEW GUEST ALIASES ---
+        'student-guest' => StudentGuest::class, // <-- ADD THIS
+        'guard-guest'   => GuardGuest::class,   // <-- ADD THIS
     ];
 
     /**
@@ -54,13 +58,13 @@ class Filters extends BaseFilters
      */
     public array $required = [
         'before' => [
-            'forcehttps', // Force Global Secure Requests
-            'pagecache',  // Web Page Caching
+            'forcehttps',
+            'pagecache',
         ],
         'after' => [
-            'pagecache',   // Web Page Caching
-            'performance', // Performance Metrics
-            'toolbar',     // Debug Toolbar
+            'pagecache',
+            'performance',
+            'toolbar',
         ],
     ];
 
