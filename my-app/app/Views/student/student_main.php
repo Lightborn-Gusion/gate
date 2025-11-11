@@ -369,7 +369,6 @@
         <a class="navbar-brand" id="logo-brand-link" href="<?= base_url('student/dashboard') ?>">
             <img src="<?= base_url('assets/images/logos/logo.svg') ?>" alt="Logo" height="30">
         </a>
-        <?php echo view('partials/flash_messages'); ?>
         <!-- Centered Title -->
         <div class="header-title mx-auto">
             TUP TAGUIG GATE PASS
@@ -1685,19 +1684,6 @@
             // Force a hard reload from the server
             window.location.reload();
         }
-    });
-    // Wait for the document to be fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set a timeout to run after 5 seconds
-        window.setTimeout(function() {
-            // Find all alerts that can be dismissed
-            var allAlerts = document.querySelectorAll('.alert-dismissible');
-
-            allAlerts.forEach(function(alert) {
-                // Use Bootstrap's Alert instance to close it
-                new bootstrap.Alert(alert).close();
-            });
-        }, 5000); // 5000 milliseconds = 5 seconds
     });
 </script>
 
